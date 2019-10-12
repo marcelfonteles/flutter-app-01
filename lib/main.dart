@@ -9,20 +9,27 @@ void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // Some code here...
+    // TODO: implement createState
     return MyAppState();
   }
 }
 
 class MyAppState extends State<MyApp> {
-  var index2 = 0;
-  var questions = ["Whats is your name?", "What\'s is your favorite color?"];
+  var questions = [
+    "Question 1?",
+    "Question 2?",
+    "Question 3?"
+  ];
 
-  void answerQuestion() {
+  var questionIndex = 0;
+
+  void anwserQuestion() {
     setState(() {
-      index2 += 1;
+      if (questionIndex < 2) {
+        questionIndex += 1;
+      }
     });
-    print(index2);
+    print(questionIndex);
   }
 
   @override
@@ -34,23 +41,20 @@ class MyAppState extends State<MyApp> {
         ),
         body: Column(children: [
           Row(children: [
-            Text(questions.elementAt(index2)),
+            Text(questions[questionIndex]),
           ]),
           Row(children: [
             RaisedButton(
               child: Text("Answer 1"),
-              onPressed: answerQuestion,
+              onPressed: anwserQuestion,
             ),
             RaisedButton(
               child: Text("Answer 2"),
-              onPressed: () => print("Anwser 2"),
+              onPressed: anwserQuestion,
             ),
             RaisedButton(
               child: Text("Answer 3"),
-              onPressed: () {
-                // Do some stuff..
-                print("Anwser 3.");
-              },
+              onPressed: anwserQuestion,
             ),
           ]),
         ]),
