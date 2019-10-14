@@ -1,63 +1,78 @@
-import 'package:flutter/material.dart';
-
-//void main() {
-//  runApp(MyApp());
-//}
+import "package:flutter/material.dart";
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
+
+//  @override
+//  MyAppState createState() => MyAppState();
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
+  MyAppState createState() {
     return MyAppState();
   }
 }
 
 class MyAppState extends State<MyApp> {
   var questions = [
-    "Question 1?",
-    "Question 2?",
-    "Question 3?"
+    "What's your favorite color?",
+    "What's your favorite animal?",
+    "What's your favorite sports team?"
   ];
-
   var questionIndex = 0;
-
-  void anwserQuestion() {
+  void answerQuestion() {
     setState(() {
       if (questionIndex < 2) {
         questionIndex += 1;
+      } else {
+        questionIndex = 0;
       }
     });
-    print(questionIndex);
   }
 
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("My First App"),
+          title: Center(
+            child: Text("My First App"),
+          ),
         ),
-        body: Column(children: [
-          Row(children: [
-            Text(questions[questionIndex]),
-          ]),
-          Row(children: [
-            RaisedButton(
-              child: Text("Answer 1"),
-              onPressed: anwserQuestion,
+        body: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[Text(questions[questionIndex])],
             ),
-            RaisedButton(
-              child: Text("Answer 2"),
-              onPressed: anwserQuestion,
+            Row(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text("Option 1"),
+                      onPressed: answerQuestion,
+                    ),
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text("Option 2"),
+                      onPressed: answerQuestion,
+                    ),
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text("Option 3"),
+                      onPressed: answerQuestion,
+                    ),
+                  ],
+                ),
+              ],
             ),
-            RaisedButton(
-              child: Text("Answer 3"),
-              onPressed: anwserQuestion,
-            ),
-          ]),
-        ]),
+          ],
+        ),
       ),
     );
   }
