@@ -6,6 +6,15 @@ class Question extends StatelessWidget {
   Question(this.questionText);
 
   Widget build(BuildContext context) {
-    return Text(questionText);
+    var screenSize = MediaQuery.of(context).size;
+    return Container(
+      width: screenSize.width,
+      margin: EdgeInsets.only(top: 10, bottom: 10),
+      child: Text(
+        questionText,
+        style: TextStyle(fontSize: 18),
+        textAlign: TextAlign.center,
+      ),
+    );
   }
 }

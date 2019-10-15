@@ -5,7 +5,6 @@ import "./question.dart";
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
-
 //  @override
 //  MyAppState createState() => MyAppState();
   @override
@@ -21,6 +20,7 @@ class _MyAppState extends State<MyApp> {
     "What's your favorite sports team?"
   ];
   var questionIndex = 0;
+
   void answerQuestion() {
     setState(() {
       if (questionIndex < 2) {
@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,34 +46,43 @@ class _MyAppState extends State<MyApp> {
             Row(
               children: <Widget>[Question(questions[questionIndex])],
             ),
-            Row(
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Text("Option 1"),
-                      onPressed: answerQuestion,
-                    ),
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Text("Option 2"),
-                      onPressed: answerQuestion,
-                    ),
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Text("Option 3"),
-                      onPressed: answerQuestion,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            Container(
+              width: 300,
+              child: Row(
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: RaisedButton(
+                          child: Text("Option 1"),
+                          onPressed: answerQuestion,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: RaisedButton(
+                          child: Text("Option 2"),
+                          onPressed: answerQuestion,
+                        ),
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      RaisedButton(
+                        child: Text("Option 3"),
+                        onPressed: answerQuestion,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
