@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
-import 'package:quizz_app/question2.dart';
 
 import "./question.dart";
+import "./question2.dart";
+import "./anwser.dart";
 
 void main() => runApp(MyApp());
 
@@ -21,6 +22,32 @@ class _MyAppState extends State<MyApp> {
     "What's your favorite sports team?"
   ];
   var questionIndex = 0;
+
+  var mapQuestions = [
+    {
+      "questionText": "What\'s your favorite color?",
+      "answers": ["Red", "Green", "Blue"]
+    },
+    {
+      "questionText": "What\'s is your favorite animal?",
+      "answers": ["Lion", "Rabbit", "Snake"]
+    },
+    {
+      "questionText": "What\'s is the best sports team",
+      "answers": ["Fortaleza", "Bahia", "Sao Paulo"]
+    }
+  ];
+  var mapQuestionIndex = 0;
+
+  void answerMapQuestion() {
+    setState(() {
+      if (mapQuestionIndex< 2) {
+        mapQuestionIndex += 1;
+      } else {
+        mapQuestionIndex = 0;
+      }
+    });
+  }
 
   void answerQuestion() {
     setState(() {
@@ -63,7 +90,7 @@ class _MyAppState extends State<MyApp> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Question(questions[questionIndex])
+                Question(mapQuestions[mapQuestionIndex]["questionText"])
               ],
             ),
             Row(
@@ -73,35 +100,17 @@ class _MyAppState extends State<MyApp> {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(right: 10),
-                            child: RaisedButton(
-                              child: Text("Option 1"),
-                              onPressed: answerQuestion,
-                              elevation: 5.0,
-                            ),
-                          ),
+                          Answer(answerMapQuestion, "Option 1"),
                         ],
                       ),
                       Column(
                         children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(right: 10),
-                            child: RaisedButton(
-                              child: Text("Option 2"),
-                              onPressed: answerQuestion,
-                              elevation: 5.0,
-                            ),
-                          )
+                          Answer(answerMapQuestion, "Option 2"),
                         ],
                       ),
                       Column(
                         children: <Widget>[
-                          RaisedButton(
-                            child: Text("Option 3"),
-                            onPressed: answerQuestion,
-                            elevation: 5.0,
-                          ),
+                          Answer(answerMapQuestion, "Option 3"),
                         ],
                       ),
                     ],
