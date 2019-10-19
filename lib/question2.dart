@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 
 class SecondQuestion extends StatelessWidget {
-  String questionText;
+  final String questionText;
 
   SecondQuestion(this.questionText);
 

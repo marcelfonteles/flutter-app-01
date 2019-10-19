@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   ];
   var questionIndex = 0;
 
-  var mapQuestions = [
+  final MAPQUESTIONS = [
     {
       "questionText": "What\'s your favorite color?",
       "answers": ["Red", "Green", "Blue"]
@@ -41,11 +41,7 @@ class _MyAppState extends State<MyApp> {
 
   void answerMapQuestion() {
     setState(() {
-      if (mapQuestionIndex< 2) {
-        mapQuestionIndex += 1;
-      } else {
-        mapQuestionIndex = 0;
-      }
+      mapQuestionIndex += 1;
     });
   }
 
@@ -77,6 +73,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void pressedCompleted() {
+    setState(() {
+      mapQuestionIndex = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -88,36 +90,56 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Question(mapQuestions[mapQuestionIndex]["questionText"])
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Container(
-                  child: Row(
+            mapQuestionIndex < MAPQUESTIONS.length
+                ? Column(
                     children: <Widget>[
-                      Column(
+                      Row(
                         children: <Widget>[
-                          Answer(answerMapQuestion, "Option 1"),
+                          Question(
+                              MAPQUESTIONS[mapQuestionIndex]["questionText"])
                         ],
                       ),
-                      Column(
+                      Row(
                         children: <Widget>[
-                          Answer(answerMapQuestion, "Option 2"),
+                          Container(
+                            width: 360,
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            child: Row(
+                              children: <Widget>[
+                                Answer(
+                                    answerMapQuestion,
+                                    (MAPQUESTIONS[mapQuestionIndex]["answers"]
+                                        as List<String>)[0]),
+                                Answer(
+                                    answerMapQuestion,
+                                    (MAPQUESTIONS[mapQuestionIndex]["answers"]
+                                        as List<String>)[1]),
+                                Answer(
+                                    answerMapQuestion,
+                                    (MAPQUESTIONS[mapQuestionIndex]["answers"]
+                                        as List<String>)[2]),
+                              ],
+                            ),
+                          )
                         ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Answer(answerMapQuestion, "Option 3"),
-                        ],
-                      ),
+                      )
                     ],
-                  ),
-                )
-              ],
-            ),
+                  )
+                : Row(children: <Widget>[
+                    Container(
+                      width: 360,
+                      padding: EdgeInsets.only(left: 40, right: 40),
+                      margin: EdgeInsets.only(top: 10, bottom: 10),
+                      child: RaisedButton(
+                        color: Colors.blue,
+                        child: Text(
+                          "Completed",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: pressedCompleted,
+                      ),
+                    ),
+                  ]),
             Row(
               children: <Widget>[
                 SecondQuestion(secondQuestions[secondIndex]),
