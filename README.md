@@ -1,7 +1,8 @@
 # quizz_app
 
 A new Learning Flutter project. \
-This code was built while watching this Udemy Course: https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/
+This code was built while watching section 2 of this Udemy Course: https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/. \
+This project was finish!
 
 ## Getting Started
 
