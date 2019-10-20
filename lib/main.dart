@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 
-import "./question.dart";
+import "./quizz.dart";
+import "./result.dart";
 import "./question2.dart";
-import "./anwser.dart";
 
 void main() => runApp(MyApp());
 
@@ -16,44 +16,30 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var questions = [
-    "What's your favorite color?",
-    "What's your favorite animal?",
-    "What's your favorite sports team?"
-  ];
-  var questionIndex = 0;
-
   final MAPQUESTIONS = [
     {
       "questionText": "What\'s your favorite color?",
-      "answers": ["Red", "Green", "Blue"]
+      "answers": [{"text": "Red", "score": 5}, {"text": "Green", "score": 3}, {"text": "Blue", "score": 5}]
     },
     {
       "questionText": "What\'s is your favorite animal?",
-      "answers": ["Lion", "Rabbit", "Snake"]
+      "answers": [{"text": "Lion", "score": 5}, {"text": "Rabbit", "score": 3}, {"text": "Snake", "score": 2}]
     },
     {
       "questionText": "What\'s is the best sports team",
-      "answers": ["Fortaleza", "Bahia", "Sao Paulo"]
+      "answers": [{"text": "Fortaleza", "score": 128}, {"text": "Bahia", "score": 10}, {"text": "Ceará", "score": -999}]
     }
   ];
   var mapQuestionIndex = 0;
 
-  void answerMapQuestion() {
+  void answerMapQuestion(int score) {
     setState(() {
       mapQuestionIndex += 1;
+      totalScore += score;
     });
   }
 
-  void answerQuestion() {
-    setState(() {
-      if (questionIndex < 2) {
-        questionIndex += 1;
-      } else {
-        questionIndex = 0;
-      }
-    });
-  }
+  var totalScore = 0;
 
   var secondQuestions = [
     "Second Question 01",
@@ -76,6 +62,7 @@ class _MyAppState extends State<MyApp> {
   void pressedCompleted() {
     setState(() {
       mapQuestionIndex = 0;
+      totalScore = 0;
     });
   }
 
@@ -91,85 +78,49 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: <Widget>[
             mapQuestionIndex < MAPQUESTIONS.length
-                ? Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Question(
-                              MAPQUESTIONS[mapQuestionIndex]["questionText"])
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            width: 360,
-                            padding: EdgeInsets.only(left: 20, right: 20),
-                            child: Row(
-                              children: <Widget>[
-                                Answer(
-                                    answerMapQuestion,
-                                    (MAPQUESTIONS[mapQuestionIndex]["answers"]
-                                        as List<String>)[0]),
-                                Answer(
-                                    answerMapQuestion,
-                                    (MAPQUESTIONS[mapQuestionIndex]["answers"]
-                                        as List<String>)[1]),
-                                Answer(
-                                    answerMapQuestion,
-                                    (MAPQUESTIONS[mapQuestionIndex]["answers"]
-                                        as List<String>)[2]),
-                              ],
-                            ),
-                          )
-                        ],
-                      )
-                    ],
+                ? Quizz(
+                    answerMapQuestion: answerMapQuestion,
+                    MAPQUESTIONS: MAPQUESTIONS,
+                    mapQuestionIndex: mapQuestionIndex,
                   )
-                : Row(children: <Widget>[
-                    Container(
-                      width: 360,
-                      padding: EdgeInsets.only(left: 40, right: 40),
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
-                      child: RaisedButton(
-                        color: Colors.blue,
-                        child: Text(
-                          "Completed",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: pressedCompleted,
-                      ),
-                    ),
-                  ]),
+                : Result(
+                    pressedCompleted: pressedCompleted,
+                    score: totalScore,
+                  ),
             Row(
               children: <Widget>[
                 SecondQuestion(secondQuestions[secondIndex]),
               ],
             ),
-            Row(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(right: 10),
-                  child: RaisedButton(
-                    child: Text("Opcao 01"),
+            Container(
+              width: 360,
+              padding: EdgeInsets.only(left: 20, right: 20),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(right: 10),
+                    child: RaisedButton(
+                      child: Text("Opcao 01"),
+                      onPressed: answerSecondQuestion,
+                      elevation: 5.0,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 10),
+                    child: RaisedButton(
+                      child: Text("Opcao 02"),
+                      onPressed: answerSecondQuestion,
+                      elevation: 5.0,
+                    ),
+                  ),
+                  RaisedButton(
+                    child: Text("Opcao 03"),
                     onPressed: answerSecondQuestion,
                     elevation: 5.0,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 10),
-                  child: RaisedButton(
-                    child: Text("Opcao 02"),
-                    onPressed: answerSecondQuestion,
-                    elevation: 5.0,
-                  ),
-                ),
-                RaisedButton(
-                  child: Text("Opcao 03"),
-                  onPressed: answerSecondQuestion,
-                  elevation: 5.0,
-                )
-              ],
-            )
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),

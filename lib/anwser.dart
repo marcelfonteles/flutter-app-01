@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 
 class Answer extends StatelessWidget {
   final Function answerHandler;
-  final String option;
+  final Map<String, Object> option;
 
   Answer(this.answerHandler, this.option);
 
@@ -13,7 +13,7 @@ class Answer extends StatelessWidget {
       child: RaisedButton(
         color: Colors.blue,
         child: Text(
-          this.option,
+          this.option["text"],
           style: TextStyle(color: Colors.white),
         ),
         onPressed: answerHandler,
